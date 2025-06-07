@@ -23,6 +23,9 @@ class ViewController: UIViewController {
         
         // tableView.dataSource
         tableView.dataSource = self
+        
+        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
 
@@ -31,11 +34,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath)
+        
+        return cell
     }
 }
 
