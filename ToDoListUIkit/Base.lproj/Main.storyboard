@@ -20,16 +20,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Novemebr 2022" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KnV-V8-F8m">
-                                        <rect key="frame" x="109.33333333333333" y="77" width="174.66666666666669" height="23"/>
+                                        <rect key="frame" x="109.33333333333333" y="67" width="174.66666666666669" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="j0b-vS-dLI"/>
                                 <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="KnV-V8-F8m" firstAttribute="centerX" secondItem="YPb-ej-YG6" secondAttribute="centerX" id="73o-Sq-Ng3"/>
-                                    <constraint firstAttribute="bottom" secondItem="KnV-V8-F8m" secondAttribute="bottom" constant="10" id="DTL-8u-ELz"/>
+                                    <constraint firstItem="j0b-vS-dLI" firstAttribute="bottom" secondItem="KnV-V8-F8m" secondAttribute="bottom" constant="20" id="DTL-8u-ELz"/>
                                     <constraint firstAttribute="height" constant="110" id="FIg-bq-PsC"/>
                                 </constraints>
                             </view>
@@ -98,6 +99,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="L8z-ex-Aui" secondAttribute="trailing" constant="10" id="R4O-vV-jTM"/>
                                                         <constraint firstItem="L8z-ex-Aui" firstAttribute="centerY" secondItem="1GY-1z-qoQ" secondAttribute="centerY" id="RML-FM-fUz"/>
                                                         <constraint firstItem="EfJ-aS-Q95" firstAttribute="leading" secondItem="07Y-nQ-aWF" secondAttribute="trailing" constant="15" id="Rmp-7C-zAc"/>
+                                                        <constraint firstAttribute="bottom" secondItem="QXn-D9-Nah" secondAttribute="bottom" constant="45" id="a9l-Li-2de"/>
                                                         <constraint firstItem="QXn-D9-Nah" firstAttribute="top" secondItem="1GY-1z-qoQ" secondAttribute="bottom" constant="10" id="fRv-fu-RYd"/>
                                                         <constraint firstItem="QXn-D9-Nah" firstAttribute="leading" secondItem="07Y-nQ-aWF" secondAttribute="trailing" constant="15" id="qHi-i5-Bz4"/>
                                                         <constraint firstItem="1GY-1z-qoQ" firstAttribute="top" secondItem="EfJ-aS-Q95" secondAttribute="bottom" constant="10" id="vT1-BX-ws5"/>

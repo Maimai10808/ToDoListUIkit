@@ -12,6 +12,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    // Button
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.link
+        button.tintColor = UIColor.white
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.imageView?.layer.transform = CATransform3DMakeScale(1.4, 1.4, 1.4)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +38,28 @@ class ViewController: UIViewController {
         
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
+        
+        // Button
+        view.addSubview(addButton)
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        super.viewDidLayoutSubviews()
+        let safeAreaBotton = view.safeAreaInsets.bottom
+        let width: CGFloat = 60
+        let height: CGFloat = 60
+        let xPos = view.frame.width / 2 - width / 2
+        let yPos = view.frame.height -  height - safeAreaBotton
+        addButton.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        addButton.layer.cornerRadius = width / 2
+        print("safe area \(view.safeAreaInsets.bottom)")
+    }
+    
+    @objc func addButtonTapped() {
+        let newTaskViewController = NewTaskViewController()
+        present(newTaskViewController, animated: true)
     }
 
 
