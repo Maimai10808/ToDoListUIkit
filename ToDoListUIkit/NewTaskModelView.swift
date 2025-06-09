@@ -9,12 +9,20 @@ import UIKit
 
 class NewTaskModelView: UIView {
 
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var categoryPickerView: UIPickerView!
-    @IBOutlet weak var submitButton: UIButton!
-    
+    @IBOutlet private weak var descriptionTextView: UITextView!
+    @IBOutlet private weak var categoryPickerView: UIPickerView!
+    @IBOutlet private weak var submitButton: UIButton!
     
     @IBOutlet var contentView: UIView!
+    
+    var caption: String {
+        get {
+            return descriptionTextView.text
+        }
+        set {
+            descriptionTextView.text = newValue
+        }
+    }
     
     
     override init(frame: CGRect) {
