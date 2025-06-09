@@ -11,9 +11,15 @@ class NewTaskViewController: UIViewController {
     
     // modelView instantiate
     lazy var modelView: NewTaskModelView = {
-        let modelView = UINib(nibName: "NewTaskModelView", bundle: nil).instantiate(withOwner: nil)[0]
-        as! NewTaskModelView
+        let modelWidth = view.frame.width - 30
+        let modelHeight: CGFloat = 430
+        let frame = CGRect(x: 15, y: view.center.y - (modelHeight / 2), width: modelWidth, height: modelHeight)
+
+        // 正确创建 modelView 实例
+        let modelView = NewTaskModelView(frame: frame)
         
+        
+        // 返回 modelView 实例，动画应在 addSubview 之后另写
         return modelView
     }()
     
@@ -36,17 +42,7 @@ class NewTaskViewController: UIViewController {
         // modelView frame
         view.addSubview(modelView)
         
-        // 设置初始透明度为 0（不可见）
-        modelView.alpha = 0
         
-        let modelWidth = view.frame.width - CGFloat(30)
-        let modelHeight: CGFloat = 430
-        modelView.frame = CGRect(x: 15, y: view.center.y - (modelHeight / 2), width: modelWidth, height: modelHeight)
-        
-        // 动画淡入显示
-            UIView.animate(withDuration: 0.3) {
-                self.modelView.alpha = 1
-            }
         
         
     }

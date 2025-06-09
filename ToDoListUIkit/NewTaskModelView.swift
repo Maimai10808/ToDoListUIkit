@@ -13,8 +13,23 @@ class NewTaskModelView: UIView {
     @IBOutlet weak var categoryPickerView: UIPickerView!
     @IBOutlet weak var submitButton: UIButton!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    
+    @IBOutlet var contentView: UIView!
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initSubviews()
+    }
+    
+    func initSubviews() {
+        let nib = UINib(nibName: "NewTaskModelView", bundle: nil)
+        nib.instantiate(withOwner: self)
         
         // descriptionTextView
         descriptionTextView.layer.borderWidth = 0.5
@@ -34,8 +49,20 @@ class NewTaskModelView: UIView {
            categoryPickerView.selectRow(middleRow, inComponent: 0, animated: false)
         categoryPickerView.selectRow(1, inComponent: 0, animated: false)
         
+        contentView.layer.cornerRadius = 5
         
-        layer.cornerRadius = 5
+        contentView.frame = bounds
+        addSubview(contentView)
+        
+        print("✅ contentView is:", contentView!)
+        
+        
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        
     }
     
     
