@@ -39,7 +39,15 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.estimatedRowHeight = 80
+        
+        // 创建一个 UITableView 并设置空的 footer view 来隐藏底部多余的空白区域
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
+        
+        // 如果你想添加一个自定义的 footer 视图，可以像这样设置：
+        //let footerView = UIView()
+        // footerView.backgroundColor = .lightGray
         
         // Button
         view.addSubview(addButton)

@@ -48,6 +48,9 @@ class TaskTableViewCell: UITableViewCell {
         isCompleteImageView.image = task.isComplete ? UIImage(systemName: "checkmark.circle") :
         UIImage(systemName: "circle")
         dateLabel.text = dateFormatter.string(from: task.createdDate)
+        
+        selectionStyle = .none
+        //     •    当用户点击 UITableViewCell 时，单元格不会显示任何选中效果，通常用来避免默认的选中背景色变化，保持单元格外观不变。
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
