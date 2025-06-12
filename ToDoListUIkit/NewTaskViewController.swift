@@ -5,7 +5,19 @@
 //  Created by mac on 6/8/25.
 //
 
+//  This class represents the view controller responsible for presenting the "New Task" modal.
+//  It handles the lifecycle of the modal, including setting up the modal view, adding it to the view hierarchy,
+//  and dismissing the modal when the user taps the close button.
+//
+//  The NewTaskViewController also acts as the delegate for the NewTaskModelView, listening for close actions
+//  from the modal view. It handles the dismissal of the modal when the close action is triggered.
+
+
 import UIKit
+
+protocol NewTaskDelegate: AnyObject {
+    func closeView()
+}
 
 class NewTaskViewController: UIViewController {
     
@@ -18,6 +30,8 @@ class NewTaskViewController: UIViewController {
         // 正确创建 modelView 实例
         let modelView = NewTaskModelView(frame: frame)
         // 返回 modelView 实例，动画应在 addSubview 之后另写
+        
+        modelView.delegate = self
         return modelView
     }()
     
@@ -39,12 +53,15 @@ class NewTaskViewController: UIViewController {
         
         // modelView frame
         view.addSubview(modelView)
-        
-        
-        
-        
-    }
-    
 
-    
+    }
+
+}
+
+
+//MARK: - Conformance to New Task Delegate
+extension NewTaskViewController: NewTaskDelegate {
+    func closeView() {
+        dismiss(animated: true)
+    }
 }

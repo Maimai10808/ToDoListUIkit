@@ -14,6 +14,21 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryContainerView: UIView!
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var categoryLabel: UILabel!
+    
+    @IBOutlet weak var captionLabel: UILabel!
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var isCompleteImageView: UIImageView!
+    
+    private var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -21,6 +36,18 @@ class TaskTableViewCell: UITableViewCell {
         containerView.layer.cornerRadius = 8
         containerView.clipsToBounds = true
         
+    }
+    
+    //     •    withTask 是参数标签，显示函数的目的是什么（这里是配置任务）。
+    // •    task 是你在函数内部使用的变量名称，用来引用传入的 Task 对象。
+    // •    Task 是传入的参数类型，它是你传递给函数的实际数据类型。
+    
+    func configure(withTask task: Task) {
+        categoryLabel.text = task.category.rawValue
+        captionLabel.text = task.caption
+        isCompleteImageView.image = task.isComplete ? UIImage(systemName: "checkmark.circle") :
+        UIImage(systemName: "circle")
+        dateLabel.text = dateFormatter.string(from: task.createdDate)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

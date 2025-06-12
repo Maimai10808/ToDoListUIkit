@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    var tasks: [Task] = []
+    
     // Button
     lazy var addButton: UIButton = {
         let button = UIButton()
@@ -68,11 +70,14 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath)
+        let task = tasks[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
+        // as! TaskTableViewCell：此代码将获取到的单元格强制类型转换为 TaskTableViewCell，即你自定义的单元格类。这个强制转换是必要的，因为 dequeueReusableCell 方法返回的是 UITableViewCell 类型，你需要将其转换为 TaskTableViewCell 类型，以便能访问你在自定义单元格中定义的 UI 元素。
+        cell.configure(withTask: task)
         
         return cell
     }

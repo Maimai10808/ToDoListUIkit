@@ -5,7 +5,19 @@
 //  Created by mac on 6/8/25.
 //
 
+//  This class defines the custom view that represents the modal view for adding a new task.
+//  It includes all the UI components such as a description text view, category picker, and submit button.
+//  This view also handles the layout and interactions within the modal view, as well as passing data and actions to the NewTaskViewController via a delegate.
+//
+//  The main purpose of this view is to manage the user interface for creating a new task, with appropriate interactions
+//  such as clearing the placeholder text, handling picker view data, and delegating close actions to the controller.
+
 import UIKit
+
+
+import UIKit
+
+
 
 class NewTaskModelView: UIView {
 
@@ -14,6 +26,9 @@ class NewTaskModelView: UIView {
     @IBOutlet private weak var submitButton: UIButton!
     
     @IBOutlet var contentView: UIView!
+    
+    var newTaskViewController : NewTaskViewController?
+    weak var delegate: NewTaskDelegate?
     
     var caption: String {
         get {
@@ -57,7 +72,7 @@ class NewTaskModelView: UIView {
            categoryPickerView.selectRow(middleRow, inComponent: 0, animated: false)
         categoryPickerView.selectRow(1, inComponent: 0, animated: false)
         
-        contentView.layer.cornerRadius = 5
+        
         
         contentView.frame = bounds
         addSubview(contentView)
@@ -67,16 +82,21 @@ class NewTaskModelView: UIView {
         
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        
+    override func layoutSubviews() {
+        contentView.layer.cornerRadius = 5
     }
+    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        print("test to see if this is called")
+//        
+//    }
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
     }
     @IBAction func closeButtonTapped(_ sender: Any) {
+        delegate?.closeView()
     }
     
 }
@@ -148,3 +168,4 @@ extension NewTaskModelView: UIPickerViewDelegate {
     
     
 }
+
