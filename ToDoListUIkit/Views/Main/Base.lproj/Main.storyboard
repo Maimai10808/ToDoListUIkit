@@ -117,7 +117,7 @@
                                         <connections>
                                             <outlet property="captionLabel" destination="1GY-1z-qoQ" id="l4H-B1-4b9"/>
                                             <outlet property="categoryContainerView" destination="EfJ-aS-Q95" id="Eq6-mt-Gbn"/>
-                                            <outlet property="categoryLabel" destination="EfJ-aS-Q95" id="rkh-Zd-eaN"/>
+                                            <outlet property="categoryLabel" destination="6IE-2y-8lL" id="N0X-yP-4w0"/>
                                             <outlet property="containerView" destination="FbF-Er-rYM" id="L41-TA-AWw"/>
                                             <outlet property="dateLabel" destination="QXn-D9-Nah" id="lXQ-Vk-fB7"/>
                                             <outlet property="isCompleteImageView" destination="L8z-ex-Aui" id="4U9-mx-RAa"/>

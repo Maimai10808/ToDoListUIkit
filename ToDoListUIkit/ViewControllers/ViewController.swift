@@ -44,6 +44,14 @@ class ViewController: UIViewController {
         // Button
         view.addSubview(addButton)
         
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(createTask(_:)),
+            name: NSNotification.Name("com.fullstacktuts.createTask"),
+            object: nil)
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +70,18 @@ class ViewController: UIViewController {
     @objc func addButtonTapped() {
         let newTaskViewController = NewTaskViewController()
         present(newTaskViewController, animated: true)
+    }
+    
+    @objc func createTask(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let task = userInfo["newTask"] as? Task else {
+            return
+        }
+        
+        //     •    提取通知中的数据：
+        // 使用 notification.userInfo 获取通知中的数据，具体是 newTask 键对应的任务对象 task。如果提取失败，函数直接返回。
+        
+        tasks.append(task)
+        tableView.reloadData()
     }
 
 

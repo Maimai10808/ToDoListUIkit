@@ -14,11 +14,6 @@
 
 import UIKit
 
-
-import UIKit
-
-
-
 class NewTaskModelView: UIView {
 
     @IBOutlet private weak var descriptionTextView: UITextView!
@@ -94,7 +89,30 @@ class NewTaskModelView: UIView {
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
+        guard let caption = descriptionTextView.text, caption.count >= 4 else {
+            return
+        }
+        let selectedRow = categoryPickerView.selectedRow(inComponent: 0)
+        let category = Category.allCases[selectedRow]
+        let task = Task(category: category, caption: caption, createdDate: Date(), isComplete: false)
+        let userInfo: [String : Task] = ["newTask" : task]
+        
+        /*
+         let userInfo: [String : Task] = ["newTask" : task] 这一行代码的作用是创建一个字典（userInfo），该字典将新创建的 task 对象包装起来，以便通过 NotificationCenter 发送通知时传递给观察者。
+
+         具体来说：
+             •    字典键值对：字典的键是一个字符串 "newTask"，值是一个 Task 对象。Task 是你应用中的任务模型（包含任务的相关信息，如类别、描述、创建日期等）。
+             •    用途：userInfo 字典被用作通知的一部分，将其包含在 NSNotification 中，这样接收到该通知的对象就能从通知中提取到这个任务对象。通过 userInfo，其他组件可以获取到 newTask 键对应的任务数据。
+         */
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("com.fullstacktuts.createTask"),
+            object: nil,
+            userInfo: userInfo)
+        
+        delegate?.closeView()
     }
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
         delegate?.closeView()
     }
