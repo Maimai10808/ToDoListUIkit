@@ -38,6 +38,8 @@ class ViewController: UIViewController {
         // tableView.dataSource
         tableView.dataSource = self
         
+        tableView.delegate = self
+        
         tableView.estimatedRowHeight = 80
         
         // 创建一个 UITableView 并设置空的 footer view 来隐藏底部多余的空白区域
@@ -59,6 +61,12 @@ class ViewController: UIViewController {
             name: NSNotification.Name("com.fullstacktuts.createTask"),
             object: nil)
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(editTask(_:)),
+            name: NSNotification.Name("com.fullstacktuts.editTask"),
+            object: nil)
+        
         
     }
     
@@ -75,9 +83,26 @@ class ViewController: UIViewController {
         print("safe area \(view.safeAreaInsets.bottom)")
     }
     
+   
+    
     @objc func addButtonTapped() {
         let newTaskViewController = NewTaskViewController()
         present(newTaskViewController, animated: true)
+    }
+    
+    @objc func editTask(_ notification: Notification)  {
+        guard let userInfo = notification.userInfo,
+              let taskToUpdate = userInfo["updateTask"] as? Task else {
+            return
+        }
+        let taskIndex = tasks.firstIndex { task in
+            task.id == taskToUpdate.id
+        }
+        guard let taskIndex = taskIndex else {
+            return
+        }
+        tasks[taskIndex] = taskToUpdate
+        tableView.reloadData()
     }
     
     @objc func createTask(_ notification: Notification) {
@@ -108,6 +133,16 @@ extension ViewController: UITableViewDataSource {
         cell.configure(withTask: task)
         
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        
+        let newTaskViewController = NewTaskViewController(task: task)
+        present(newTaskViewController, animated: true)
     }
 }
 

@@ -60,7 +60,3 @@ class TaskTableViewCell: UITableViewCell {
     }
 
 }
-
-extension ViewController: UITableViewDelegate {
-    
-}

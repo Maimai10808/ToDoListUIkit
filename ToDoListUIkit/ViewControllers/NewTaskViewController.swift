@@ -28,16 +28,19 @@ class NewTaskViewController: UIViewController {
         let modelHeight: CGFloat = 430
         let frame = CGRect(x: 15, y: view.center.y - (modelHeight / 2), width: modelWidth, height: modelHeight)
         // 正确创建 modelView 实例
-        let modelView = NewTaskModelView(frame: frame)
+        let modelView = NewTaskModelView(frame: frame, task: task)
         // 返回 modelView 实例，动画应在 addSubview 之后另写
         
         modelView.delegate = self
         return modelView
     }()
     
-    init() {
+    private var task: Task?
+    
+    init(task: Task? = nil) {
         super.init(nibName: nil, bundle: nil)
         
+        self.task = task
         modalTransitionStyle   = .crossDissolve
         modalPresentationStyle = .overFullScreen
     }

@@ -22,10 +22,12 @@ class NewTaskModelView: UIView {
     
     @IBOutlet var contentView: UIView!
     
-    var newTaskViewController : NewTaskViewController?
+    var      newTaskViewController : NewTaskViewController?
     weak var delegate: NewTaskDelegate?
+    private var task: Task?
     
     var caption: String {
+        
         get {
             return descriptionTextView.text
         }
@@ -34,11 +36,17 @@ class NewTaskModelView: UIView {
         }
     }
     
-    
-    override init(frame: CGRect) {
+    init(frame: CGRect, task: Task?) {
         super.init(frame: frame)
+        self.task = task
         initSubviews()
     }
+    
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        initSubviews()
+//    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -53,8 +61,6 @@ class NewTaskModelView: UIView {
         descriptionTextView.layer.borderWidth = 0.5
         descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
         descriptionTextView.layer.cornerRadius = 8
-        descriptionTextView.text = "Add caption.."
-        descriptionTextView.textColor = UIColor.lightGray
         
         
         descriptionTextView.delegate = self
@@ -66,6 +72,17 @@ class NewTaskModelView: UIView {
         let middleRow = Category.allCases.count / 2
            categoryPickerView.selectRow(middleRow, inComponent: 0, animated: false)
         categoryPickerView.selectRow(1, inComponent: 0, animated: false)
+        
+        if let task = task {
+            descriptionTextView.text = task.caption
+            descriptionTextView.textColor = UIColor.black
+            if let rowIndex = Category.allCases.firstIndex(of: task.category) {
+                categoryPickerView.selectRow(rowIndex, inComponent: 0, animated: false)
+            }
+        } else {
+            descriptionTextView.text = "Add caption"
+            descriptionTextView.textColor = UIColor.lightGray
+        }
         
         
         
@@ -94,8 +111,24 @@ class NewTaskModelView: UIView {
         }
         let selectedRow = categoryPickerView.selectedRow(inComponent: 0)
         let category = Category.allCases[selectedRow]
-        let task = Task(category: category, caption: caption, createdDate: Date(), isComplete: false)
-        let userInfo: [String : Task] = ["newTask" : task]
+        if let task = task {
+            let task = Task(id: task.id, category: category, caption: caption, createdDate: task.createdDate, isComplete: task.isComplete)
+            let userInfo: [String : Task] = ["updateTask" : task]
+            NotificationCenter.default.post(
+                name: NSNotification.Name("com.fullstacktuts.editTask"),
+                object: nil,
+                userInfo: userInfo)
+        } else {
+            let taskId = UUID().uuidString
+            let task = Task(id:taskId ,category: category, caption: caption, createdDate: Date(), isComplete: false)
+            let userInfo: [String : Task] = ["newTask" : task]
+            NotificationCenter.default.post(
+                name: NSNotification.Name("com.fullstacktuts.createTask"),
+                object: nil,
+                userInfo: userInfo)
+        }
+        
+        delegate?.closeView()
         
         /*
          let userInfo: [String : Task] = ["newTask" : task] 这一行代码的作用是创建一个字典（userInfo），该字典将新创建的 task 对象包装起来，以便通过 NotificationCenter 发送通知时传递给观察者。
@@ -104,13 +137,6 @@ class NewTaskModelView: UIView {
              •    字典键值对：字典的键是一个字符串 "newTask"，值是一个 Task 对象。Task 是你应用中的任务模型（包含任务的相关信息，如类别、描述、创建日期等）。
              •    用途：userInfo 字典被用作通知的一部分，将其包含在 NSNotification 中，这样接收到该通知的对象就能从通知中提取到这个任务对象。通过 userInfo，其他组件可以获取到 newTask 键对应的任务数据。
          */
-        
-        NotificationCenter.default.post(
-            name: NSNotification.Name("com.fullstacktuts.createTask"),
-            object: nil,
-            userInfo: userInfo)
-        
-        delegate?.closeView()
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
