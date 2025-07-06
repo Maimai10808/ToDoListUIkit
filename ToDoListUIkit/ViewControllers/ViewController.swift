@@ -38,8 +38,6 @@ class ViewController: UIViewController {
         // tableView.dataSource
         tableView.dataSource = self
         
-        tableView.delegate = self
-        
         tableView.estimatedRowHeight = 80
         
         // 创建一个 UITableView 并设置空的 footer view 来隐藏底部多余的空白区域
@@ -130,19 +128,34 @@ extension ViewController: UITableViewDataSource {
         let task = tasks[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
         // as! TaskTableViewCell：此代码将获取到的单元格强制类型转换为 TaskTableViewCell，即你自定义的单元格类。这个强制转换是必要的，因为 dequeueReusableCell 方法返回的是 UITableViewCell 类型，你需要将其转换为 TaskTableViewCell 类型，以便能访问你在自定义单元格中定义的 UI 元素。
-        cell.configure(withTask: task)
+        cell.configure(withTask: task, delegate: self)
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
-extension ViewController: UITableViewDelegate {
+
+extension ViewController: TaskTableViewCellDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
+    func editTask(id: String) {
+        guard let taskIndex = tasks.firstIndex(where: { $0.id == id }) else { return }
+        let task = tasks[taskIndex]
         
         let newTaskViewController = NewTaskViewController(task: task)
         present(newTaskViewController, animated: true)
+    }
+    
+    func markTask(id: String, complete: Bool) {
+        guard let taskIndex = tasks.firstIndex(where: { $0.id == id }) else { return }
+        tasks[taskIndex].isComplete = complete
+        tableView.reloadData()
     }
 }
 
