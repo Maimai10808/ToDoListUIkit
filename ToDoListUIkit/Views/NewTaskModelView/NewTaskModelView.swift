@@ -75,13 +75,13 @@ class NewTaskModelView: UIView {
         
         if let task = task {
             descriptionTextView.text = task.caption
-            descriptionTextView.textColor = UIColor.black
+            descriptionTextView.textColor = UIColor.label
             if let rowIndex = Category.allCases.firstIndex(of: task.category) {
                 categoryPickerView.selectRow(rowIndex, inComponent: 0, animated: false)
             }
         } else {
             descriptionTextView.text = "Add caption"
-            descriptionTextView.textColor = UIColor.lightGray
+            descriptionTextView.textColor = UIColor.placeholderText
         }
         
         
@@ -149,16 +149,16 @@ class NewTaskModelView: UIView {
 extension NewTaskModelView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
+        if textView.textColor == UIColor.placeholderText {
             textView.text = nil
-            textView.textColor = UIColor.black
+            textView.textColor = UIColor.label
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Add caption..."
-            textView.textColor = UIColor.lightGray
+            textView.textColor = UIColor.placeholderText
         }
     }
 }

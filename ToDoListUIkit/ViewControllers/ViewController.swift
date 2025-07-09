@@ -114,6 +114,12 @@ class ViewController: UIViewController {
         tasks.append(task)
         tableView.reloadData()
     }
+    
+    
+    @IBAction func settingButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "SettingSegue", sender: nil)
+    }
+    
 
 
 }
