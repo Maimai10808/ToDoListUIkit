@@ -45,6 +45,8 @@ class TaskTableViewCell: UITableViewCell {
         categoryContainerView.layer.cornerRadius = categoryContainerView.frame.height / 2
         containerView.layer.cornerRadius = 8
         containerView.clipsToBounds = true
+//        categoryLabel.font = .style(.heading1)
+//        captionLabel.font = .style(.heading1)
         
     }
     
