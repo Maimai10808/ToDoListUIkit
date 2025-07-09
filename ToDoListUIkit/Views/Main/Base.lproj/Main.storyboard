@@ -139,6 +139,7 @@
                                             <outlet property="containerView" destination="FbF-Er-rYM" id="L41-TA-AWw"/>
                                             <outlet property="dateLabel" destination="QXn-D9-Nah" id="lXQ-Vk-fB7"/>
                                             <outlet property="isCompleteImageView" destination="L8z-ex-Aui" id="4U9-mx-RAa"/>
+                                            <outlet property="stripView" destination="07Y-nQ-aWF" id="EfY-MW-j9e"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

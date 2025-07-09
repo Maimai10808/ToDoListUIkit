@@ -27,6 +27,7 @@ class TaskTableViewCell: UITableViewCell {
     
     @IBOutlet weak var isCompleteImageView: UIImageView!
 
+    @IBOutlet weak var stripView: UIView!
     
     private weak var delegate: TaskTableViewCellDelegate?
     
@@ -55,6 +56,11 @@ class TaskTableViewCell: UITableViewCell {
     // •    Task 是传入的参数类型，它是你传递给函数的实际数据类型。
     
     func configure(withTask task: Task , delegate: TaskTableViewCellDelegate?) {
+        
+        stripView.backgroundColor = task.category.color
+        categoryLabel.textColor = task.category.color
+        categoryContainerView.backgroundColor = task.category.secondaryColor
+        
         categoryLabel.text = task.category.rawValue
         captionLabel.text = task.caption
         isCompleteImageView.image = task.isComplete ? UIImage(systemName: "checkmark.circle") :
