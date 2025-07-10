@@ -53,10 +53,19 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
-        
+        modelView.transform = CGAffineTransform(scaleX: 0, y: 0)
         // modelView frame
         view.addSubview(modelView)
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5,options: [.curveEaseOut]) {
+            self.modelView.transform = CGAffineTransform.identity
+        }
+        
     }
 
 }
