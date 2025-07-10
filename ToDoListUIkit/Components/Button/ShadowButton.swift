@@ -7,12 +7,33 @@
 
 import UIKit
 
+@IBDesignable
 class ShadowButton: UIButton {
+    
+    @IBInspectable
+    var cornerRadius: CGFloat = 5 {
+        didSet {
+            layer.cornerRadius = cornerRadius
+        }
+    }
+    
+    @IBInspectable
+    var background: UIColor = .link {
+        didSet {
+            backgroundColor = background
+        }
+    }
+    
+    @IBInspectable
+    var shadowColor: UIColor = UIColor(named: "secondaryLink")! {
+        didSet {
+            layer.shadowColor = shadowColor.cgColor
+        }
+    }
 
-    override  func awakeFromNib() {
-        super.awakeFromNib()
+    override  func prepareForInterfaceBuilder() {
         titleLabel?.font = UIFont.style(.secondaryText)
-        backgroundColor = UIColor.link
+        backgroundColor = background
     }
     
     override  func didMoveToSuperview() {
@@ -22,11 +43,11 @@ class ShadowButton: UIButton {
     
     override  func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 5
+        layer.cornerRadius = cornerRadius
         layer.masksToBounds = false
         layer.shadowOpacity = 1.0
         layer.shadowRadius = 0
-        layer.shadowColor = UIColor.secondaryLink.cgColor
+        layer.shadowColor = shadowColor.cgColor
     }
     
     
