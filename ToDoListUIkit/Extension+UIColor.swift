@@ -32,4 +32,8 @@ extension UIColor {
     static var secondarystudyColor: UIColor {
         return UIColor(named: "study")!.withAlphaComponent(0.2)
     }
+    
+    static var secondaryLinkColor: UIColor {
+        return UIColor(named: "secondaryLink")!
+    }
 }

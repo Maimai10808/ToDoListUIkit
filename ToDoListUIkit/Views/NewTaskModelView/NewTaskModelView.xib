@@ -11,10 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewTaskModelView" customModule="ToDoListUIkit" customModuleProvider="target">
             <connections>
+                <outlet property="captionLabel" destination="AmX-bs-reu" id="OBM-pk-vfs"/>
+                <outlet property="categoryLabel" destination="m0y-bV-PPd" id="mAL-oY-DIk"/>
                 <outlet property="categoryPickerView" destination="b6Y-be-yl0" id="q5d-wf-SUu"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="TTn-8j-Ad6"/>
                 <outlet property="descriptionTextView" destination="nRf-Ph-WfP" id="4Hb-YY-B1G"/>
-                <outlet property="submitButton" destination="dK9-aa-9ZG" id="PuC-0D-o4i"/>
+                <outlet property="submitButton" destination="dK9-aa-9ZG" id="Zaw-sX-Bb8"/>
+                <outlet property="titleLabel" destination="Pgc-mI-k0i" id="JmM-h1-y2u"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -71,7 +74,7 @@
                         <constraint firstAttribute="height" constant="90" id="umO-07-e9C"/>
                     </constraints>
                 </pickerView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dK9-aa-9ZG">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dK9-aa-9ZG" customClass="ShadowButton" customModule="ToDoListUIkit" customModuleProvider="target">
                     <rect key="frame" x="25" y="377.33333333333331" width="686" height="40"/>
                     <color key="backgroundColor" name="AccentColor"/>
                     <constraints>
@@ -82,7 +85,7 @@
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="Submit"/>
                     <connections>
-                        <action selector="submitButtonTapped:" destination="-1" eventType="touchUpInside" id="KD9-UN-Tve"/>
+                        <action selector="submitButtonTapped:" destination="-1" eventType="touchUpInside" id="HoY-kA-2hb"/>
                     </connections>
                 </button>
             </subviews>

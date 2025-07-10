@@ -18,7 +18,15 @@ class NewTaskModelView: UIView {
 
     @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var categoryPickerView: UIPickerView!
-    @IBOutlet private weak var submitButton: UIButton!
+   
+    @IBOutlet weak var submitButton: ShadowButton!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+
+    @IBOutlet weak var captionLabel: UILabel!
+    
+    
+    @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet var contentView: UIView!
     
@@ -56,6 +64,11 @@ class NewTaskModelView: UIView {
     func initSubviews() {
         let nib = UINib(nibName: "NewTaskModelView", bundle: nil)
         nib.instantiate(withOwner: self)
+        
+        titleLabel.font = UIFont.style(.heading1)
+        captionLabel.font = UIFont.style(.caption)
+        categoryLabel.font = UIFont.style(.secondaryText)
+        
         
         // descriptionTextView
         descriptionTextView.layer.borderWidth = 0.5
@@ -96,6 +109,7 @@ class NewTaskModelView: UIView {
     
     override func layoutSubviews() {
         contentView.layer.cornerRadius = 5
+        
     }
     
 //    override func awakeFromNib() {
