@@ -52,7 +52,7 @@ class NewTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         modelView.transform = CGAffineTransform(scaleX: 0, y: 0)
         // modelView frame
         view.addSubview(modelView)
