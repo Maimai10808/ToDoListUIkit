@@ -30,10 +30,24 @@ class ShadowButton: UIButton {
             layer.shadowColor = shadowColor.cgColor
         }
     }
+    
+    override  func awakeFromNib() {
+        super.awakeFromNib()
+        setupView()
+    }
 
     override  func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        setupView()
+    }
+    
+    private func setupView() {
         titleLabel?.font = UIFont.style(.secondaryText)
         backgroundColor = background
+        layer.shadowColor = shadowColor.cgColor
+        layer.masksToBounds = false
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 0
     }
     
     override  func didMoveToSuperview() {
@@ -44,10 +58,7 @@ class ShadowButton: UIButton {
     override  func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = cornerRadius
-        layer.masksToBounds = false
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 0
-        layer.shadowColor = shadowColor.cgColor
+        
     }
     
     
