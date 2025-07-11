@@ -85,9 +85,4 @@ extension NewTaskViewController: NewTaskDelegate {
         self.present(alert, animated: true)
     }
     
-    
-    
-    
-    
-    
 }
