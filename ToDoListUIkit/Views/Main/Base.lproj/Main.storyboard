@@ -247,6 +247,7 @@
                     <connections>
                         <outlet property="appthemeLabel" destination="cDg-jf-uLI" id="oUA-1n-xJl"/>
                         <outlet property="modalVIew" destination="dSK-Cv-WVh" id="sKa-tA-v2D"/>
+                        <outlet property="segmentedControl" destination="yLE-Vd-U2J" id="dRn-Za-jr6"/>
                         <outlet property="settingsTitleLabel" destination="tQe-HG-Yag" id="Aid-Xw-vlV"/>
                     </connections>
                 </viewController>
