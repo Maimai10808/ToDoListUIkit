@@ -15,11 +15,30 @@
 
 import UIKit
 
+//TODO: - Move to seperate protocol class
+
+/*
+
+NewTaskDelegate links the NewTaskViewController and the NewTaskViewController konw when to dismiss
+ when the x button is tapped on the NewTaskModalView
+ and to present an error alert when a user enters invaild input
+
+ */
+
 protocol NewTaskDelegate: AnyObject {
+    ///Dismiss the NewTaskViewController. Called when x button is tapped on NewTaskModalView
     func closeView()
+    /**
+     This presents an error alert when the user enters invalid input.
+
+     - Parameters:
+       - title: This is the title of the error alert
+       - message: A short description of what went wrong
+     */
+    
     func presentErrorAlert(title: String, message: String)
 }
-
+///  This class is responsable for creating a new task or editing a new task
 class NewTaskViewController: UIViewController {
     
     // modelView instantiate
@@ -38,6 +57,13 @@ class NewTaskViewController: UIViewController {
     
     private var task: Task?
     
+    /**
+      This creates the NewTaskViewController
+     
+      - Parameters:
+        - task: If a task is being edited, task should be passed. If a new task is being created, task shoould be nil
+        - Returns: NewTaskViewController with a NewTaskModalview for the user to edit or create a task
+     */
     init(task: Task? = nil) {
         super.init(nibName: nil, bundle: nil)
         

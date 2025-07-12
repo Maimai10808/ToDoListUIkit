@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// The first screen you see when the app launches. This is where you see all tasks and this is the starting point for adding or editing a task. Tasks can only be deleted from here.
 class ViewController: UIViewController {
 
     @IBOutlet weak var titleView: UIView!
@@ -14,12 +15,14 @@ class ViewController: UIViewController {
     
     var tasks: [Task] = []
     
-    // Button
+    
+    // Button : we create the button programatically becase we cannot add the button as a subview of a tableview in the interface bulider
     lazy var addButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.link
         button.tintColor = UIColor.white
         button.setImage(UIImage(systemName: "plus"), for: .normal)
+        // we change the scale of the imageView to make the size of the plus image bigger.
         button.imageView?.layer.transform = CATransform3DMakeScale(1.4, 1.4, 1.4)
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         
@@ -28,7 +31,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setuView()
+        setupNotifications()
+    }
+    
+    private func setuView() {
         // titleView corner
         titleView.clipsToBounds = true
         titleView.layer.cornerRadius = 24
@@ -51,8 +58,10 @@ class ViewController: UIViewController {
         
         // Button
         view.addSubview(addButton)
-        
-        
+    }
+    
+    // We setup observors to watch for notification when a new task is created or when a task is edited
+    private func setupNotifications() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(createTask(_:)),
@@ -64,8 +73,50 @@ class ViewController: UIViewController {
             selector: #selector(editTask(_:)),
             name: NSNotification.Name("com.fullstacktuts.editTask"),
             object: nil)
+    }
+    
+    @objc func addButtonTapped() {
+        let newTaskViewController = NewTaskViewController()
+        present(newTaskViewController, animated: true)
+    }
+    
+    /**
+     This responds to a task that has been edited from the NewTaskViewController. The notification object holds a userInfo object with the task that needs to be updated
+     - Parameters:
+       - notification: the notification object from the "com.fullstacktuts.editTask" notification
+     */
+    
+    @objc func editTask(_ notification: Notification)  {
+        guard let userInfo = notification.userInfo,
+              let taskToUpdate = userInfo["updateTask"] as? Task else {
+            return
+        }
+        let taskIndex = tasks.firstIndex { task in
+            task.id == taskToUpdate.id
+        }
+        guard let taskIndex = taskIndex else {
+            return
+        }
+        tasks[taskIndex] = taskToUpdate
+        tableView.reloadData()
+    }
+    
+    /**
+     This responds to a task that has been created from the NewTaskViewController. The notification object holds a userInfo object with the task that needs to be created
+     - Parameters:
+       - notification: the notification object from the "com.fullstacktuts.createTask" notification
+     */
+    
+    @objc func createTask(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let task = userInfo["newTask"] as? Task else {
+            return
+        }
         
+        //     •    提取通知中的数据：
+        // 使用 notification.userInfo 获取通知中的数据，具体是 newTask 键对应的任务对象 task。如果提取失败，函数直接返回。
         
+        tasks.append(task)
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,37 +134,7 @@ class ViewController: UIViewController {
     
    
     
-    @objc func addButtonTapped() {
-        let newTaskViewController = NewTaskViewController()
-        present(newTaskViewController, animated: true)
-    }
     
-    @objc func editTask(_ notification: Notification)  {
-        guard let userInfo = notification.userInfo,
-              let taskToUpdate = userInfo["updateTask"] as? Task else {
-            return
-        }
-        let taskIndex = tasks.firstIndex { task in
-            task.id == taskToUpdate.id
-        }
-        guard let taskIndex = taskIndex else {
-            return
-        }
-        tasks[taskIndex] = taskToUpdate
-        tableView.reloadData()
-    }
-    
-    @objc func createTask(_ notification: Notification) {
-        guard let userInfo = notification.userInfo, let task = userInfo["newTask"] as? Task else {
-            return
-        }
-        
-        //     •    提取通知中的数据：
-        // 使用 notification.userInfo 获取通知中的数据，具体是 newTask 键对应的任务对象 task。如果提取失败，函数直接返回。
-        
-        tasks.append(task)
-        tableView.reloadData()
-    }
     
     
     @IBAction func settingButtonTapped(_ sender: Any) {
@@ -124,6 +145,7 @@ class ViewController: UIViewController {
 
 }
 
+// MARK: - Methods conforming to UITableViewDataSoure
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,7 +169,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-
+// MARK: - Methods conforming to TaskTableViewCellDelegate
 extension ViewController: TaskTableViewCellDelegate {
     
     func editTask(id: String) {

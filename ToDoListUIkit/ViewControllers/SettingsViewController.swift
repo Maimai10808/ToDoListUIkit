@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// This allows the user to change settings. The only setting available is the ability to change interface style to light,dark, or sytem preference
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var settingsTitleLabel: UILabel!
@@ -17,12 +18,11 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    private func setupView() {
         settingsTitleLabel.font = UIFont.style(.heading1)
         appthemeLabel.font = UIFont.style(.secondaryText)
         
+        // Depending on the current interface style ,we change the srgmented control's selected index to the interface
         let window = UIApplication.shared
             .connectedScenes
             .compactMap { $0 as? UIWindowScene }
@@ -42,6 +42,12 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         modalVIew.layer.cornerRadius = 5
@@ -54,6 +60,15 @@ class SettingsViewController: UIViewController {
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         
+        /*
+         The hierarchy for views is as follows:
+         - uiapplication
+         - windowscenes
+         - windows
+         - keyWindow
+         - overrideUserInterfaceStyle
+         We obtain the window to change the interface style below
+         */
         let window = UIApplication.shared
             .connectedScenes
             .compactMap { $0 as? UIWindowScene }
