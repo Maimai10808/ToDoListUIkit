@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-enum Category: String, CaseIterable {
+enum Category: String, CaseIterable, PersistableEnum {
     case work = "work"
     case study = "study"
     case exercise = "exercise"
